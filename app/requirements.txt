@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+gunicorn
+aiosqlite
+slowapi
+python-multipart
+jinja2
+websockets
+python-dotenv

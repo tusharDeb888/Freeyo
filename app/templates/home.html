@@ -1,0 +1,2840 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO Meta Tags -->
+    <title>Freeyo - Free Anonymous File & Text Sharing | No Sign-up Required</title>
+    <meta name="description"
+        content="Share files and text securely without creating an account. Built for students and professionals who need quick, anonymous file sharing with auto-expiry and burn-after-read features.">
+    <meta name="keywords"
+        content="file sharing, text sharing, anonymous sharing, secure share, no sign up, burn after read, auto expiry, free file transfer">
+    <meta name="author" content="Freeyo">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph / Social -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Freeyo - Share Files & Text Without The Hassle">
+    <meta property="og:description"
+        content="Free, secure, anonymous file and text sharing. No sign-up, no tracking. Perfect for students and professionals.">
+    <meta property="og:url" content="https://share.debtushar.in">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Freeyo - Anonymous File Sharing">
+    <meta name="twitter:description" content="Share files and text securely without creating an account.">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://freeyo.debtushar.in">
+
+    <!-- Favicon & Theme -->
+    <link rel="icon" type="image/png" href="/static/freeyo_logo.png">
+    <meta name="theme-color" content="#000000">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Spline 3D Viewer -->
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100vw;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #000;
+            color: #fff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header - Floating Pill Navbar */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 20px 30px;
+            transition: padding 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* Scrolled state - smooth shrink to compact bubble on left */
+        header.scrolled {
+            padding: 15px 20px;
+        }
+
+        header.scrolled .header-content {
+            max-width: none;
+            justify-content: flex-start;
+        }
+
+        header.scrolled .nav-pill {
+            flex: 0 0 auto;
+            padding: 4px;
+            border-radius: 50px;
+            background: rgba(15, 15, 20, 0.9);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        header.scrolled .nav-links {
+            width: 0;
+            max-width: 0;
+            opacity: 0;
+            overflow: hidden;
+            padding: 0;
+            margin: 0;
+            pointer-events: none;
+        }
+
+        header.scrolled .nav-actions {
+            gap: 0;
+        }
+
+        header.scrolled .nav-actions .nav-login {
+            width: 0;
+            max-width: 0;
+            opacity: 0;
+            overflow: hidden;
+            padding: 0;
+            margin: 0;
+            pointer-events: none;
+        }
+
+        header.scrolled .nav-actions .nav-cta {
+            padding: 10px 18px;
+            font-size: 0.85rem;
+            border-radius: 50px;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* Gradient Logo */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            text-decoration: none;
+            color: #fff;
+            flex-shrink: 0;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            object-fit: cover;
+            display: block;
+            border-radius: 50%;
+            background: #fff;
+            /* Ensure background is white if transparent */
+            padding: 0;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            /* Subtle border */
+        }
+
+
+
+        /* Floating Nav Pill */
+        .nav-pill {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(20, 20, 25, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 50px;
+            padding: 8px 8px 8px 24px;
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            max-width: 500px;
+            opacity: 1;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 10px 16px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-link:hover {
+            color: #fff;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            width: 28px;
+            height: 28px;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: #fff;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 15px;
+            right: 15px;
+            background: rgba(20, 20, 25, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 20px;
+            z-index: 99;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 12px 16px;
+            border-radius: 10px;
+            transition: all 0.2s;
+        }
+
+        .mobile-menu a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .mobile-menu .mobile-cta {
+            background: #fff;
+            color: #000;
+            text-align: center;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+        }
+
+        /* Right side buttons */
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-actions .nav-login {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 10px 16px;
+            max-width: 150px;
+            opacity: 1;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            white-space: nowrap;
+        }
+
+        .nav-actions .nav-login:hover {
+            color: #fff;
+        }
+
+        .nav-actions .nav-cta {
+            background: #fff;
+            color: #000;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 10px 24px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-actions .nav-cta:hover {
+            background: #f0f0f0;
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Hero Section with Full 3D Background */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: #000;
+        }
+
+        /* 3D Background - Full Screen */
+        .hero-3d {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .hero-3d canvas {
+            width: 100% !important;
+            height: 100% !important;
+            outline: none;
+        }
+
+        /* Spline watermark cover - gradient blend */
+        .watermark-cover {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 320px;
+            height: 100px;
+            background: radial-gradient(ellipse at bottom right, #000 0%, #000 50%, transparent 80%);
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        /* Cover for Spline logo in hero section - smooth gradient */
+        .hero .spline-watermark-cover {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 350px;
+            height: 120px;
+            background: radial-gradient(ellipse at 90% 90%, #000 0%, #000 50%, transparent 80%);
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        /* Hero Content Overlay */
+
+
+        /* ========== SECTION TRANSITION EFFECTS ========== */
+
+        /* Bottom gradient fade for hero section */
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 200px;
+            background: linear-gradient(to bottom,
+                    transparent 0%,
+                    rgba(10, 10, 15, 0.3) 30%,
+                    rgba(10, 10, 15, 0.7) 60%,
+                    #0a0a0f 100%);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* Ambient glow effect at section boundaries */
+        .section-divider {
+            position: relative;
+            height: 1px;
+            background: linear-gradient(90deg,
+                    transparent 0%,
+                    rgba(100, 150, 255, 0.3) 20%,
+                    rgba(100, 150, 255, 0.5) 50%,
+                    rgba(100, 150, 255, 0.3) 80%,
+                    transparent 100%);
+            margin: 0;
+            overflow: visible;
+        }
+
+        .section-divider::before {
+            content: '';
+            position: absolute;
+            top: -30px;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: radial-gradient(ellipse at center,
+                    rgba(100, 150, 255, 0.15) 0%,
+                    transparent 70%);
+            filter: blur(20px);
+            pointer-events: none;
+        }
+
+        /* Top fade-in for sections after hero */
+        .features-showcase::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(to bottom,
+                    #0a0a0f 0%,
+                    transparent 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Bottom CTA Buttons */
+        .hero-cta {
+            position: absolute;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 5;
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        @media (max-width: 768px) {
+            .hero-cta {
+                bottom: 40px;
+            }
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 10px 24px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.8);
+            letter-spacing: 0.5px;
+            margin-bottom: 32px;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            text-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 550px;
+            margin: 0 auto 40px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: rgba(255, 255, 255, 0.95);
+            color: #0a0a0a;
+            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-primary:hover {
+            background: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: #222;
+            border-color: #444;
+        }
+
+        /* Audience Section */
+        .audience {
+            padding: 100px 20px;
+            background: #0a0a0a;
+        }
+
+        .audience-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 60px;
+        }
+
+        .audience-card {
+            text-align: center;
+        }
+
+        .audience-icon {
+            font-size: 4rem;
+            margin-bottom: 24px;
+        }
+
+        .audience-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .audience-card p {
+            color: #777;
+            font-size: 0.95rem;
+        }
+
+        /* Features Showcase */
+        .features-showcase {
+            position: relative;
+            padding: 100px 20px;
+            background: #0a0a0f;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            font-style: italic;
+            margin-bottom: 16px;
+        }
+
+        .section-header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .showcase-grid {
+            max-width: 700px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .showcase-item {
+            background: #111;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #222;
+        }
+
+        .showcase-item img {
+            width: 100%;
+            height: auto;
+            max-height: 280px;
+            object-fit: cover;
+            object-position: top;
+            display: block;
+        }
+
+        .showcase-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .showcase-info h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .showcase-info p {
+            color: #777;
+            font-size: 0.85rem;
+        }
+
+        /* Feature Cards */
+        .feature-cards {
+            padding: 100px 20px;
+            background: #0a0a0a;
+        }
+
+        .cards-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .feature-card {
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 16px;
+            padding: 32px;
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: #1a1a1a;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 100px 20px;
+            background:
+                linear-gradient(rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.95)),
+                repeating-linear-gradient(0deg,
+                    transparent,
+                    transparent 100px,
+                    #111 100px,
+                    #111 101px),
+                repeating-linear-gradient(90deg,
+                    transparent,
+                    transparent 100px,
+                    #111 100px,
+                    #111 101px);
+        }
+
+        .steps-grid {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .step {
+            text-align: center;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: #fff;
+            color: #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin: 0 auto 24px;
+        }
+
+        .step h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .step p {
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 100px 20px;
+            text-align: center;
+            background: linear-gradient(180deg, #0a0a0a 0%, #000 100%);
+        }
+
+        .cta h2 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 900;
+            font-style: italic;
+            margin-bottom: 24px;
+        }
+
+        .cta p {
+            color: #777;
+            margin-bottom: 32px;
+            font-size: 1.1rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 20px;
+            background: #000;
+            border-top: 1px solid #1a1a1a;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+        }
+
+        .footer-logo svg {
+            display: none;
+        }
+
+        .footer-logo img {
+            width: 32px;
+            height: 32px;
+            object-fit: cover;
+            border-radius: 50%;
+            background: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: #fff;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 16px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: #111;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .social-links a:hover {
+            background: #222;
+        }
+
+        .social-links svg {
+            width: 18px;
+            height: 18px;
+            fill: #888;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 10px 15px;
+            }
+
+            .header-content {
+                gap: 10px;
+            }
+
+            .logo-icon {
+                width: 40px;
+                height: 40px;
+            }
+
+            .nav-pill {
+                padding: 8px 12px;
+                border-radius: 30px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .nav-actions {
+                gap: 8px;
+            }
+
+            .nav-actions .nav-login {
+                display: none;
+            }
+
+            .nav-actions .nav-cta {
+                padding: 8px 16px;
+                font-size: 0.85rem;
+            }
+
+            .hero-cta {
+                bottom: 30px;
+                padding: 0 15px;
+            }
+
+            .hero-cta .btn {
+                padding: 14px 24px;
+                font-size: 0.9rem;
+            }
+
+            .steps-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .showcase-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta {
+                padding: 60px 20px;
+            }
+
+            .cta h2 {
+                font-size: 1.75rem;
+            }
+
+            footer {
+                padding: 30px 15px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .footer-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .social-wrapper {
+                justify-content: center;
+            }
+
+            /* Modal responsive */
+            .modal-container {
+                padding: 24px 20px;
+                margin: 10px;
+                max-height: 85vh;
+            }
+
+            .modal-title {
+                font-size: 1.5rem;
+            }
+
+            .modal-type-toggle {
+                flex-direction: row;
+                border-radius: 50px;
+                gap: 0;
+            }
+
+            .modal-type-btn {
+                border-radius: 50px;
+                padding: 10px 16px;
+                font-size: 0.85rem;
+            }
+
+            .modal-options {
+                flex-direction: column;
+            }
+
+            .modal-code-input {
+                font-size: 1.25rem;
+                letter-spacing: 4px;
+                padding: 16px;
+            }
+
+            .modal-room-join {
+                flex-direction: column;
+            }
+
+            .modal-result-code {
+                font-size: 1.5rem;
+            }
+
+            /* 3D Hero Mobile Optimization - Use static image */
+            .hero {
+                min-height: 100svh;
+                overflow: hidden;
+                background: url('/static/mobile_hero_bg.png') center 40% / contain no-repeat;
+                background-color: #000;
+            }
+
+            .hero-3d {
+                /* Hide 3D on mobile for better performance */
+                display: none;
+            }
+
+            .watermark-cover {
+                display: none;
+            }
+
+            /* Hero CTA mobile positioning */
+            .hero-cta {
+                bottom: 80px;
+                padding: 0 20px;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            .hero-cta .btn {
+                flex: 1 1 45%;
+                min-width: 150px;
+                max-width: 200px;
+                padding: 14px 20px;
+                font-size: 0.9rem;
+                text-align: center;
+                justify-content: center;
+                box-sizing: border-box;
+            }
+
+            .hero-cta .btn-secondary {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-icon {
+                width: 36px;
+                height: 36px;
+            }
+
+            .nav-pill {
+                padding: 6px 10px;
+            }
+
+            .nav-actions .nav-cta {
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .hero-description {
+                font-size: 0.95rem;
+            }
+
+            .hero-cta .btn {
+                padding: 12px 20px;
+                font-size: 0.85rem;
+            }
+
+            .section-title {
+                font-size: 1.75rem;
+            }
+
+            .step {
+                padding: 20px;
+            }
+
+            .modal-container {
+                padding: 20px 16px;
+            }
+
+            .modal-close {
+                width: 32px;
+                height: 32px;
+                top: 12px;
+                right: 12px;
+            }
+
+            .modal-submit-btn {
+                padding: 14px;
+            }
+
+            /* 3D Hero extra small screen */
+            .hero-3d {
+                width: 180vw;
+                /* Even wider for small phones */
+            }
+
+            .hero-cta {
+                bottom: 40px;
+                flex-direction: column;
+                gap: 12px;
+                align-items: center;
+            }
+
+            .hero-cta .btn {
+                width: calc(100% - 40px);
+                max-width: 320px;
+                min-width: auto;
+                padding: 16px 24px;
+                box-sizing: border-box;
+            }
+
+            .hero-cta .btn-secondary {
+                display: flex;
+            }
+
+            /* Navbar adjustments for very small screens */
+            .nav-pill {
+                justify-content: flex-end;
+            }
+
+            .nav-actions .nav-cta {
+                padding: 6px 14px;
+                font-size: 0.75rem;
+            }
+        }
+
+        /* ========== MODERN SCROLL EFFECTS ========== */
+
+        /* Smooth scrolling - handled by Lenis JS library */
+        html {
+            scroll-behavior: auto;
+        }
+
+        /* Parallax container */
+        .parallax-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse at 20% 80%, rgba(30, 60, 120, 0.3) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(60, 30, 90, 0.2) 0%, transparent 50%),
+                repeating-linear-gradient(0deg, transparent, transparent 100px, #111 100px, #111 101px),
+                repeating-linear-gradient(90deg, transparent, transparent 100px, #111 100px, #111 101px);
+            transform: translateZ(-1px) scale(1.5);
+            z-index: -1;
+        }
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Floating elements */
+        .floating-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            animation: float 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .floating-orb-1 {
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, #4488ff, #2244aa);
+            top: 10%;
+            left: -10%;
+            animation-delay: 0s;
+        }
+
+        .floating-orb-2 {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, #8844ff, #442288);
+            bottom: 20%;
+            right: -5%;
+            animation-delay: -3s;
+        }
+
+        .floating-orb-3 {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, #f5d742, #f59542);
+            top: 60%;
+            left: 50%;
+            animation-delay: -5s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0) scale(1);
+            }
+
+            50% {
+                transform: translateY(-30px) scale(1.05);
+            }
+        }
+
+        /* Scroll reveal animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-60px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-left.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(60px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-right.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-scale.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Stagger animation delays for cards */
+        .feature-card:nth-child(1) {
+            transition-delay: 0s;
+        }
+
+        .feature-card:nth-child(2) {
+            transition-delay: 0.1s;
+        }
+
+        .feature-card:nth-child(3) {
+            transition-delay: 0.2s;
+        }
+
+        .feature-card:nth-child(4) {
+            transition-delay: 0.3s;
+        }
+
+        .feature-card:nth-child(5) {
+            transition-delay: 0.4s;
+        }
+
+        .feature-card:nth-child(6) {
+            transition-delay: 0.5s;
+        }
+
+        .step:nth-child(1) {
+            transition-delay: 0s;
+        }
+
+        .step:nth-child(2) {
+            transition-delay: 0.15s;
+        }
+
+        .step:nth-child(3) {
+            transition-delay: 0.3s;
+        }
+
+        .showcase-item:nth-child(1) {
+            transition-delay: 0s;
+        }
+
+        .showcase-item:nth-child(2) {
+            transition-delay: 0.15s;
+        }
+
+        .audience-card:nth-child(1) {
+            transition-delay: 0s;
+        }
+
+        .audience-card:nth-child(2) {
+            transition-delay: 0.15s;
+        }
+
+        /* Hero parallax text */
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 600;
+            color: #ffffff;
+            margin: 0;
+            line-height: 1.1;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(0.9rem, 2vw, 1.2rem);
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 1rem;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+        }
+
+        /* Gradient line dividers */
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1) 20%, rgba(255, 255, 255, 0.1) 80%, transparent);
+            margin: 0 auto;
+            max-width: 800px;
+        }
+
+        /* Hover lift effect for cards */
+        .feature-card,
+        .showcase-item,
+        .audience-card {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .showcase-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Glow effect on scroll */
+        .section-header h2 {
+            background: linear-gradient(135deg, #fff 0%, #888 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Social Media Handles */
+        .social-wrapper {
+            display: inline-flex;
+            list-style: none;
+            gap: 16px;
+            padding: 0;
+            margin: 0;
+        }
+
+        .social-wrapper .icon {
+            position: relative;
+            background: #fff;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            color: #333;
+        }
+
+        .social-wrapper .tooltip {
+            position: absolute;
+            top: 0;
+            font-size: 14px;
+            background: #fff;
+            color: #000;
+            padding: 5px 8px;
+            border-radius: 5px;
+            box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            white-space: nowrap;
+            font-weight: 500;
+        }
+
+        .social-wrapper .tooltip::before {
+            position: absolute;
+            content: "";
+            height: 8px;
+            width: 8px;
+            background: #fff;
+            bottom: -3px;
+            left: 50%;
+            transform: translate(-50%) rotate(45deg);
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .social-wrapper .icon:hover .tooltip {
+            top: -50px;
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .social-wrapper .icon a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            color: inherit;
+        }
+
+        /* LinkedIn specific */
+        .social-wrapper .linkedin:hover,
+        .social-wrapper .linkedin:hover .tooltip,
+        .social-wrapper .linkedin:hover .tooltip::before {
+            background: #0077b5;
+            color: #fff;
+        }
+
+        .social-wrapper .linkedin:hover svg {
+            fill: #fff;
+        }
+
+        /* GitHub specific */
+        .social-wrapper .github:hover,
+        .social-wrapper .github:hover .tooltip,
+        .social-wrapper .github:hover .tooltip::before {
+            background: #333;
+            color: #fff;
+        }
+
+        .social-wrapper .github:hover svg {
+            fill: #fff;
+        }
+
+        /* Telegram specific */
+        .social-wrapper .telegram:hover,
+        .social-wrapper .telegram:hover .tooltip,
+        .social-wrapper .telegram:hover .tooltip::before {
+            background: #0088cc;
+            color: #fff;
+        }
+
+        .social-wrapper .telegram:hover svg {
+            fill: #fff;
+        }
+
+        /* ========== MODAL STYLES ========== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-container {
+            background: #111;
+            border-radius: 24px;
+            padding: 40px;
+            width: 100%;
+            max-width: 520px;
+            border: 1px solid #222;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-container {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 36px;
+            height: 36px;
+            background: #222;
+            border: 1px solid #333;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover {
+            background: #333;
+        }
+
+        .modal-close svg {
+            width: 16px;
+            height: 16px;
+            fill: #888;
+        }
+
+        .modal-title {
+            text-align: center;
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+
+        .modal-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 24px;
+            font-size: 0.95rem;
+        }
+
+        /* Modal Form Elements */
+        .modal-form textarea {
+            width: 100%;
+            height: 140px;
+            padding: 16px;
+            background: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 1rem;
+            font-family: inherit;
+            resize: vertical;
+            transition: border-color 0.2s;
+            margin-bottom: 16px;
+        }
+
+        .modal-form textarea::placeholder {
+            color: #555;
+        }
+
+        .modal-form textarea:focus {
+            outline: none;
+            border-color: #555;
+        }
+
+        .modal-type-toggle {
+            display: flex;
+            gap: 0;
+            margin-bottom: 20px;
+            background: #000;
+            border-radius: 50px;
+            padding: 4px;
+            border: 1px solid #333;
+        }
+
+        .modal-type-btn {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            background: transparent;
+            color: #666;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .modal-type-btn.active {
+            background: #fff;
+            color: #000;
+        }
+
+        .modal-type-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .modal-type-btn.active svg {
+            fill: #000;
+        }
+
+        .modal-type-btn:not(.active) svg {
+            fill: #666;
+        }
+
+        .modal-file-upload {
+            border: 1px dashed #444;
+            border-radius: 12px;
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #0a0a0a;
+            margin-bottom: 16px;
+        }
+
+        .modal-file-upload:hover {
+            border-color: #666;
+            background: #111;
+        }
+
+        .modal-file-upload-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+            opacity: 0.6;
+        }
+
+        .modal-file-upload-text {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .modal-options {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .modal-options select {
+            flex: 1;
+            padding: 12px 16px;
+            background: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .modal-options select:focus {
+            outline: none;
+            border-color: #555;
+        }
+
+        .modal-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .modal-checkbox input {
+            width: 18px;
+            height: 18px;
+            accent-color: #fff;
+        }
+
+        .modal-submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: #fff;
+            border: none;
+            border-radius: 12px;
+            color: #000;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .modal-submit-btn:hover {
+            background: #e0e0e0;
+        }
+
+        .modal-submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Access Modal Code Input */
+        .modal-code-input {
+            width: 100%;
+            padding: 20px;
+            background: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 1.75rem;
+            font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+            text-align: center;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            transition: border-color 0.2s;
+            margin-bottom: 20px;
+        }
+
+        .modal-code-input::placeholder {
+            color: #444;
+            letter-spacing: 4px;
+            font-size: 1rem;
+        }
+
+        .modal-code-input:focus {
+            outline: none;
+            border-color: #555;
+        }
+
+        /* Result Display */
+        .modal-result {
+            margin-top: 20px;
+            padding: 20px;
+            background: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 12px;
+            display: none;
+        }
+
+        .modal-result.show {
+            display: block;
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .modal-result-label {
+            font-size: 0.75rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .modal-result-code {
+            font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+            font-size: 2rem;
+            letter-spacing: 4px;
+            text-align: center;
+            color: #fff;
+            padding: 16px;
+            background: #111;
+            border-radius: 8px;
+        }
+
+        .modal-result-text {
+            background: #111;
+            padding: 16px;
+            border-radius: 8px;
+            font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+            white-space: pre-wrap;
+            word-break: break-all;
+            max-height: 200px;
+            overflow-y: auto;
+            line-height: 1.6;
+            color: #e0e0e0;
+            font-size: 0.9rem;
+        }
+
+        .modal-copy-btn {
+            padding: 8px 16px;
+            background: #222;
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: #999;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .modal-copy-btn:hover {
+            background: #333;
+            color: #fff;
+        }
+
+        .modal-error {
+            background: #2a1515;
+            border: 1px solid #4a2525;
+            color: #ff6b6b;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-top: 16px;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .modal-error.show {
+            display: block;
+        }
+
+        /* Room Modal Specific */
+        .modal-room-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .modal-room-or {
+            text-align: center;
+            color: #555;
+            font-size: 0.85rem;
+            margin: 8px 0;
+        }
+
+        .modal-room-join {
+            display: flex;
+            gap: 12px;
+        }
+
+        .modal-room-input {
+            flex: 1;
+            padding: 14px 16px;
+            background: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .modal-room-input::placeholder {
+            color: #444;
+            text-transform: none;
+            letter-spacing: normal;
+        }
+
+        .modal-room-input:focus {
+            outline: none;
+            border-color: #555;
+        }
+
+        .modal-btn-secondary {
+            padding: 14px 24px;
+            background: #222;
+            border: 1px solid #333;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .modal-btn-secondary:hover {
+            background: #333;
+        }
+
+        /* Hide body scroll when modal is open */
+        body.modal-open {
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Floating Pill Navbar -->
+    <header>
+        <div class="header-content">
+            <!-- Navigation Pill -->
+            <div class="nav-pill">
+                <nav class="nav-links">
+                    <a href="#features">Features</a>
+                    <a href="#how-it-works">How It Works</a>
+                    <a href="/room">Common Room</a>
+                </nav>
+                <div class="nav-actions">
+                    <a href="/access" class="nav-login">Access Share</a>
+                    <a href="/share" class="nav-cta">Start Sharing</a>
+                </div>
+                <!-- Hamburger Menu Button -->
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <a href="#features">Features</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="/room">Common Room</a>
+        <a href="/access">Access Share</a>
+        <a href="/share" class="mobile-cta">Start Sharing</a>
+    </div>
+
+    <!-- Hero Section with Full 3D Background -->
+    <section class="hero" id="hero">
+        <!-- 3D Background -->
+        <!-- 3D Background - Custom Three.js -->
+        <div class="hero-3d" id="canvas-container">
+            <canvas id="canvas3d"></canvas>
+            <div class="watermark-cover"></div>
+        </div>
+
+        <!-- Spline 3D Viewer - Official Runtime -->
+        <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.82/build/spline-viewer.js"></script>
+        <spline-viewer url="https://prod.spline.design/vLVnZMPMDuE8GdTC/scene.splinecode" loading-anim hint="false"
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; cursor: default !important;">
+        </spline-viewer>
+
+        <script>
+            // Hide Spline watermark via shadow DOM CSS injection (polling approach)
+            (function hideSplineLogo() {
+                const viewer = document.querySelector('spline-viewer');
+                if (!viewer) return;
+
+                function tryInject() {
+                    if (viewer.shadowRoot) {
+                        const logo = viewer.shadowRoot.querySelector('#logo, #spline-text, a[href*="spline"]');
+                        if (logo) {
+                            const style = document.createElement('style');
+                            style.textContent = `
+                                #logo, #spline-text, a[href*="spline"], [class*="logo"], [id*="logo"] {
+                                    display: none !important;
+                                    visibility: hidden !important;
+                                    opacity: 0 !important;
+                                    pointer-events: none !important;
+                                    width: 0 !important;
+                                    height: 0 !important;
+                                }
+                                *, canvas, div {
+                                    cursor: default !important;
+                                }
+                            `;
+                            viewer.shadowRoot.appendChild(style);
+                            console.log('Spline watermark hidden');
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+
+                // Try immediately and poll
+                if (!tryInject()) {
+                    let attempts = 0;
+                    const interval = setInterval(() => {
+                        if (tryInject() || attempts++ > 50) {
+                            clearInterval(interval);
+                        }
+                    }, 100);
+                }
+            })();
+        </script>
+
+        <!-- Bottom CTA Buttons -->
+        <div class="hero-cta">
+            <a href="/share" class="btn btn-primary">Start Sharing Free →</a>
+            <a href="#how-it-works" class="btn btn-secondary">How It Works</a>
+        </div>
+    </section>
+
+    <!-- Audience Section -->
+    <section class="audience">
+        <div class="audience-grid">
+            <article class="audience-card reveal reveal-left">
+                <div class="audience-icon">🎓</div>
+                <h3>For Students</h3>
+                <p>Collaborate on projects, share research materials, and exchange study notes with classmates in
+                    real-time common rooms without creating accounts.</p>
+            </article>
+            <article class="audience-card reveal reveal-right">
+                <div class="audience-icon">💼</div>
+                <h3>For Professionals</h3>
+                <p>Quick file transfers, share code snippets, exchange documents with colleagues, and maintain privacy
+                    without email attachments or cloud storage.</p>
+            </article>
+        </div>
+    </section>
+
+    <!-- Features Showcase -->
+    <section class="features-showcase" id="features">
+        <div class="section-header reveal">
+            <h2>Simple Interface, Powerful Features</h2>
+            <p>Clean design focused on what matters: sharing securely</p>
+        </div>
+        <div class="showcase-grid">
+            <article class="showcase-item reveal reveal-scale">
+                <img src="/static/feature_share.png"
+                    alt="Freeyo - Main interface showing text and file sharing options with expiry settings"
+                    loading="lazy">
+                <div class="showcase-info">
+                    <h3>Freeyo Interface</h3>
+                    <p>Share text or files with customizable expiry and burn after read options</p>
+                </div>
+            </article>
+            <article class="showcase-item reveal reveal-scale">
+                <img src="/static/feature_room.png" alt="Common Room - Real-time collaboration space for up to 5 people"
+                    loading="lazy">
+                <div class="showcase-info">
+                    <h3>Common Rooms</h3>
+                    <p>Create or join collaborative spaces for real-time sharing with up to 5 people</p>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Feature Cards -->
+    <section class="feature-cards">
+        <div class="section-header reveal">
+            <h2>Everything You Need</h2>
+            <p>Privacy-first features designed for simplicity</p>
+        </div>
+        <div class="cards-grid">
+            <article class="feature-card reveal">
+                <div class="feature-icon">🚫</div>
+                <h3>No Authentication</h3>
+                <p>Share instantly without creating an account. No email, no password, no tracking. Complete anonymity.
+                </p>
+            </article>
+            <article class="feature-card reveal">
+                <div class="feature-icon">🔑</div>
+                <h3>Unique Access Codes</h3>
+                <p>Every share gets a unique code. Only people with the code can access your content. Simple, secure.
+                </p>
+            </article>
+            <article class="feature-card reveal">
+                <div class="feature-icon">⏱️</div>
+                <h3>Auto-Expiry</h3>
+                <p>Set expiration from 5 minutes to 24 hours. Content automatically deletes when time runs out.</p>
+            </article>
+            <article class="feature-card reveal">
+                <div class="feature-icon">🔥</div>
+                <h3>Burn After Read</h3>
+                <p>Enable self-destruct mode. Content is deleted immediately after the first view for maximum privacy.
+                </p>
+            </article>
+            <article class="feature-card reveal">
+                <div class="feature-icon">👥</div>
+                <h3>Common Rooms</h3>
+                <p>Create collaborative spaces for up to 5 people. Share text and files in real-time with your team.</p>
+            </article>
+            <article class="feature-card reveal">
+                <div class="feature-icon">📦</div>
+                <h3>10MB File Support</h3>
+                <p>Share documents, images, PDFs, code files, and more up to 10MB without compression.</p>
+            </article>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="section-header reveal">
+            <h2>How It Works</h2>
+            <p>Three simple steps to secure sharing</p>
+        </div>
+        <div class="steps-grid">
+            <article class="step reveal">
+                <div class="step-number">1</div>
+                <h3>Choose Content</h3>
+                <p>Select text or file. Type your message or drag and drop any file up to 10MB.</p>
+            </article>
+            <article class="step reveal">
+                <div class="step-number">2</div>
+                <h3>Set Privacy Options</h3>
+                <p>Choose expiry time and optionally enable burn-after-read for one-time viewing.</p>
+            </article>
+            <article class="step reveal">
+                <div class="step-number">3</div>
+                <h3>Share Your Code</h3>
+                <p>Get your unique 6-character code. Share it with anyone who needs access.</p>
+            </article>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <h2>Ready to Share Securely?</h2>
+        <p>No sign-up required. Start sharing in seconds.</p>
+        <a href="/share" class="btn btn-primary">Start Sharing Free →</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="/static/freeyo_logo.png" alt="Freeyo Logo">
+                Freeyo
+            </div>
+            <div class="footer-links">
+                <a href="/share">Share</a>
+                <a href="/access">Access</a>
+                <a href="/room">Common Room</a>
+            </div>
+            <ul class="social-wrapper">
+                <li class="icon linkedin">
+                    <span class="tooltip">LinkedIn</span>
+                    <a href="https://www.linkedin.com/in/tushardebai/" target="_blank" rel="noopener"
+                        aria-label="LinkedIn">
+                        <svg viewBox="0 0 24 24" height="1.2em" fill="currentColor">
+                            <path
+                                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                        </svg>
+                    </a>
+                </li>
+                <li class="icon github">
+                    <span class="tooltip">GitHub</span>
+                    <a href="https://github.com/tusharDeb888" target="_blank" rel="noopener" aria-label="GitHub">
+                        <svg viewBox="0 0 24 24" height="1.2em" fill="currentColor">
+                            <path
+                                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                        </svg>
+                    </a>
+                </li>
+                <li class="icon telegram">
+                    <span class="tooltip">Telegram</span>
+                    <a href="https://t.me/Zeniural_ai" target="_blank" rel="noopener" aria-label="Telegram">
+                        <svg viewBox="0 0 24 24" height="1.2em" fill="currentColor">
+                            <path
+                                d="M21.93 2.15c-.24-.26-.63-.38-.97-.33L1.5 6.6c-.66.14-.97.87-.56 1.41l5.48 7.37c.18.25.5.38.81.33l6.45-3.87c.23-.14.3.17.08.33l-5.32 3.97c-.24.18-.32.49-.21.77l2.87 7.74c.24.65 1.15.7 1.48.09l8.6-19.14c.15-.35-.02-.75-.38-.85z" />
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </footer>
+
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Freeyo",
+        "description": "Free, secure, anonymous file and text sharing without sign-up",
+        "url": "https://share.debtushar.in",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "featureList": [
+            "Anonymous file sharing",
+            "Text sharing",
+            "Auto-expiry",
+            "Burn after read",
+            "Real-time collaboration rooms"
+        ]
+    }
+    </script>
+
+    <!-- Lenis Smooth Scroll -->
+    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+    <script>
+        // Initialize Lenis smooth scroll with stable settings
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            orientation: 'vertical',
+            gestureOrientation: 'vertical',
+            smoothWheel: true,
+            touchMultiplier: 1.5,
+            wheelMultiplier: 0.8,
+            lerp: 0.1,
+            infinite: false
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // Handle anchor links with smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    lenis.scrollTo(target, { offset: -80 });
+                }
+            });
+        });
+
+        // Use Lenis scroll event for parallax effects (instead of native scroll)
+        lenis.on('scroll', ({ scroll }) => {
+            const heroContent = document.querySelector('.hero-content');
+            const header = document.querySelector('header');
+
+            // Move hero content up slightly on scroll
+            if (heroContent && scroll < window.innerHeight) {
+                heroContent.style.opacity = 1 - scroll / (window.innerHeight * 0.8);
+                heroContent.style.transform = `translateY(${scroll * 0.3}px)`;
+            }
+
+            // Header background opacity based on scroll
+            if (header) {
+                const glass = header.querySelector('.header-glass');
+                if (glass) {
+                    glass.style.background = scroll > 50
+                        ? 'rgba(0, 0, 0, 0.85)'
+                        : 'rgba(0, 0, 0, 0.6)';
+                }
+            }
+        });
+    </script>
+
+    <!-- Three.js for Navbar Animation -->
+
+    <script type="module">
+        import * as THREE from 'three';
+
+        // Three.js Navbar Particle Animation
+        const canvas = document.getElementById('navbar-canvas');
+        if (canvas) {
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / 70, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({
+                canvas: canvas,
+                alpha: true,
+                antialias: true
+            });
+
+            renderer.setSize(window.innerWidth, 70);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+            // Particles
+            const particleCount = 80;
+            const particles = new THREE.BufferGeometry();
+            const positions = new Float32Array(particleCount * 3);
+            const velocities = [];
+
+            for (let i = 0; i < particleCount; i++) {
+                positions[i * 3] = (Math.random() - 0.5) * 20;
+                positions[i * 3 + 1] = (Math.random() - 0.5) * 2;
+                positions[i * 3 + 2] = (Math.random() - 0.5) * 5;
+                velocities.push({
+                    x: (Math.random() - 0.5) * 0.02,
+                    y: (Math.random() - 0.5) * 0.01,
+                    z: (Math.random() - 0.5) * 0.01
+                });
+            }
+
+            particles.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+            const particleMaterial = new THREE.PointsMaterial({
+                color: 0x4488ff,
+                size: 0.08,
+                transparent: true,
+                opacity: 0.6,
+                blending: THREE.AdditiveBlending
+            });
+
+            const particleSystem = new THREE.Points(particles, particleMaterial);
+            scene.add(particleSystem);
+
+            // Floating lines
+            const lineGeometry = new THREE.BufferGeometry();
+            const linePositions = new Float32Array(20 * 3);
+            for (let i = 0; i < 20; i++) {
+                linePositions[i * 3] = (Math.random() - 0.5) * 20;
+                linePositions[i * 3 + 1] = (Math.random() - 0.5) * 2;
+                linePositions[i * 3 + 2] = (Math.random() - 0.5) * 3;
+            }
+            lineGeometry.setAttribute('position', new THREE.BufferAttribute(linePositions, 3));
+
+            const lineMaterial = new THREE.LineBasicMaterial({
+                color: 0x2266aa,
+                transparent: true,
+                opacity: 0.3
+            });
+            const lines = new THREE.Line(lineGeometry, lineMaterial);
+            scene.add(lines);
+
+            camera.position.z = 5;
+
+            // Mouse tracking
+            let mouseX = 0;
+            document.addEventListener('mousemove', (e) => {
+                mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+            });
+
+            // Animation
+            function animate() {
+                requestAnimationFrame(animate);
+
+                const positions = particles.attributes.position.array;
+                for (let i = 0; i < particleCount; i++) {
+                    positions[i * 3] += velocities[i].x;
+                    positions[i * 3 + 1] += velocities[i].y;
+                    positions[i * 3 + 2] += velocities[i].z;
+
+                    // Wrap around
+                    if (Math.abs(positions[i * 3]) > 10) velocities[i].x *= -1;
+                    if (Math.abs(positions[i * 3 + 1]) > 1) velocities[i].y *= -1;
+                    if (Math.abs(positions[i * 3 + 2]) > 2.5) velocities[i].z *= -1;
+                }
+                particles.attributes.position.needsUpdate = true;
+
+                // Subtle camera movement with mouse
+                camera.position.x += (mouseX * 0.5 - camera.position.x) * 0.02;
+
+                particleSystem.rotation.y += 0.001;
+                lines.rotation.z += 0.0005;
+
+                renderer.render(scene, camera);
+            }
+
+            animate();
+
+            // Resize handler
+            window.addEventListener('resize', () => {
+                renderer.setSize(window.innerWidth, 70);
+                camera.aspect = window.innerWidth / 70;
+                camera.updateProjectionMatrix();
+            });
+        }
+    </script>
+
+    <!-- Scroll Reveal Animation -->
+    <script>
+        // Intersection Observer for scroll reveal
+        (function () {
+            const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            revealElements.forEach(el => observer.observe(el));
+
+            // Navbar scroll animation (desktop only)
+            const header = document.querySelector('header');
+            const scrollThreshold = 100;
+
+            function handleScroll() {
+                // Only apply on desktop (width > 768px)
+                if (window.innerWidth > 768) {
+                    if (window.scrollY > scrollThreshold) {
+                        header.classList.add('scrolled');
+                    } else {
+                        header.classList.remove('scrolled');
+                    }
+                } else {
+                    // Remove scrolled class on mobile
+                    header.classList.remove('scrolled');
+                }
+            }
+
+            window.addEventListener('scroll', handleScroll, { passive: true });
+            window.addEventListener('resize', handleScroll);
+            handleScroll(); // Initial check
+
+            // Hamburger menu toggle
+            const hamburger = document.getElementById('hamburger');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            if (hamburger && mobileMenu) {
+                hamburger.addEventListener('click', () => {
+                    hamburger.classList.toggle('active');
+                    mobileMenu.classList.toggle('active');
+                });
+
+                // Close menu when clicking a link
+                mobileMenu.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        hamburger.classList.remove('active');
+                        mobileMenu.classList.remove('active');
+                    });
+                });
+
+                // Close menu when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+                        hamburger.classList.remove('active');
+                        mobileMenu.classList.remove('active');
+                    }
+                });
+            }
+
+            // Hero parallax on mouse move
+            const hero = document.querySelector('.hero');
+            const heroContent = document.querySelector('.hero-content');
+            const orbs = document.querySelectorAll('.floating-orb');
+
+            if (hero && heroContent) {
+                hero.addEventListener('mousemove', (e) => {
+                    const rect = hero.getBoundingClientRect();
+                    const x = (e.clientX - rect.left) / rect.width - 0.5;
+                    const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+                    // Subtle parallax on hero content
+                    heroContent.style.transform = `translate(${x * 10}px, ${y * 10}px)`;
+
+                    // Move orbs in opposite direction
+                    orbs.forEach((orb, i) => {
+                        const speed = (i + 1) * 15;
+                        orb.style.transform = `translate(${-x * speed}px, ${-y * speed}px)`;
+                    });
+                });
+
+                hero.addEventListener('mouseleave', () => {
+                    heroContent.style.transform = 'translate(0, 0)';
+                    orbs.forEach(orb => {
+                        orb.style.transform = 'translate(0, 0)';
+                    });
+                });
+            }
+
+            // NOTE: Parallax on scroll is now handled by Lenis in the main scroll script above
+            // Native scroll listener removed to prevent conflicts with Lenis smooth scroll
+        })();
+    </script>
+
+    <!-- ========== MODALS ========== -->
+
+    <!-- Share Modal -->
+    <div class="modal-overlay" id="share-modal">
+        <div class="modal-container">
+            <button class="modal-close" onclick="closeModal('share-modal')">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                </svg>
+            </button>
+            <h2 class="modal-title">Share</h2>
+            <p class="modal-subtitle">Share text or files securely with a unique code</p>
+
+            <form class="modal-form" id="modal-share-form">
+                <div class="modal-type-toggle">
+                    <button type="button" class="modal-type-btn active" data-type="text"
+                        onclick="switchShareType('text')">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M3 18h12v-2H3v2zM3 6v2h18V6H3zm0 7h18v-2H3v2z" />
+                        </svg>
+                        Text
+                    </button>
+                    <button type="button" class="modal-type-btn" data-type="file" onclick="switchShareType('file')">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z" />
+                        </svg>
+                        File
+                    </button>
+                </div>
+
+                <div id="modal-text-area">
+                    <textarea id="modal-share-content" placeholder="Enter your text here..."></textarea>
+                </div>
+
+                <div id="modal-file-area" style="display: none;">
+                    <div class="modal-file-upload" id="modal-drop-zone"
+                        onclick="document.getElementById('modal-file-input').click()">
+                        <div class="modal-file-upload-icon">📁</div>
+                        <div class="modal-file-upload-text">
+                            <strong>Drop file here</strong> or click to browse<br>
+                            <small style="color: #555;">(Max 10MB)</small>
+                        </div>
+                        <div id="modal-file-name" style="display: none; margin-top: 12px; color: #10b981;"></div>
+                    </div>
+                    <input type="file" id="modal-file-input" style="display: none;">
+                </div>
+
+                <div class="modal-options">
+                    <select id="modal-expiry">
+                        <option value="5">5 minutes</option>
+                        <option value="60" selected>1 hour</option>
+                        <option value="1440">24 hours</option>
+                    </select>
+                </div>
+
+                <label class="modal-checkbox">
+                    <input type="checkbox" id="modal-burn">
+                    🔥 Burn after read (delete after first view)
+                </label>
+
+                <button type="submit" class="modal-submit-btn" id="modal-share-btn">Share</button>
+            </form>
+
+            <div class="modal-result" id="modal-share-result">
+                <div class="modal-result-header">
+                    <span class="modal-result-label">Your share code</span>
+                    <button class="modal-copy-btn" onclick="copyShareCode()">Copy</button>
+                </div>
+                <div class="modal-result-code" id="modal-share-code"></div>
+            </div>
+
+            <div class="modal-error" id="modal-share-error"></div>
+        </div>
+    </div>
+
+    <!-- Access Modal -->
+    <div class="modal-overlay" id="access-modal">
+        <div class="modal-container">
+            <button class="modal-close" onclick="closeModal('access-modal')">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                </svg>
+            </button>
+            <h2 class="modal-title">Access Share</h2>
+            <p class="modal-subtitle">Enter your share code to retrieve content</p>
+
+            <form id="modal-access-form">
+                <input type="text" class="modal-code-input" id="modal-access-code" placeholder="XXX-XXX" maxlength="7"
+                    autocomplete="off">
+                <button type="submit" class="modal-submit-btn">Access Content</button>
+            </form>
+
+            <div class="modal-result" id="modal-access-result">
+                <div class="modal-result-header">
+                    <span class="modal-result-label">Content retrieved</span>
+                    <button class="modal-copy-btn" onclick="copyAccessContent()">Copy</button>
+                </div>
+                <div class="modal-result-text" id="modal-access-content"></div>
+            </div>
+
+            <div class="modal-error" id="modal-access-error"></div>
+        </div>
+    </div>
+
+    <!-- Room Modal -->
+    <div class="modal-overlay" id="room-modal">
+        <div class="modal-container">
+            <button class="modal-close" onclick="closeModal('room-modal')">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                </svg>
+            </button>
+            <h2 class="modal-title">Common Room</h2>
+            <p class="modal-subtitle">Create or join a collaborative space for up to 5 people</p>
+
+            <div class="modal-room-actions">
+                <button class="modal-submit-btn" id="modal-create-room-btn">Create New Room</button>
+                <div class="modal-room-or">— or —</div>
+                <div class="modal-room-join">
+                    <input type="text" class="modal-room-input" id="modal-room-code" placeholder="Enter room code">
+                    <button class="modal-btn-secondary" id="modal-join-room-btn">Join</button>
+                </div>
+            </div>
+
+            <div class="modal-error" id="modal-room-error"></div>
+        </div>
+    </div>
+
+    <!-- Modal JavaScript -->
+    <script>
+        // Modal open/close functions
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('active');
+                document.body.classList.add('modal-open');
+                // Focus first input
+                setTimeout(() => {
+                    const input = modal.querySelector('input, textarea');
+                    if (input) input.focus();
+                }, 100);
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.classList.remove('modal-open');
+            }
+        }
+
+        // Close modal on overlay click
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                    document.body.classList.remove('modal-open');
+                }
+            });
+        });
+
+        // Close modal on ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal-overlay.active').forEach(modal => {
+                    modal.classList.remove('active');
+                });
+                document.body.classList.remove('modal-open');
+            }
+        });
+
+        // Intercept nav link clicks
+        document.addEventListener('DOMContentLoaded', () => {
+            // Nav bar links
+            document.querySelectorAll('a[href="/share"], a[href="/access"], a[href="/room"]').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const href = link.getAttribute('href');
+                    if (href === '/share') openModal('share-modal');
+                    else if (href === '/access') openModal('access-modal');
+                    else if (href === '/room') openModal('room-modal');
+                });
+            });
+        });
+
+        // ========== SHARE MODAL LOGIC ==========
+        let modalShareType = 'text';
+        let modalSelectedFile = null;
+
+        function switchShareType(type) {
+            modalShareType = type;
+            document.querySelectorAll('#share-modal .modal-type-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.type === type);
+            });
+            document.getElementById('modal-text-area').style.display = type === 'text' ? 'block' : 'none';
+            document.getElementById('modal-file-area').style.display = type === 'file' ? 'block' : 'none';
+        }
+
+        // File upload handling
+        const modalDropZone = document.getElementById('modal-drop-zone');
+        const modalFileInput = document.getElementById('modal-file-input');
+
+        if (modalDropZone) {
+            modalDropZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                modalDropZone.style.borderColor = '#666';
+                modalDropZone.style.background = '#111';
+            });
+
+            modalDropZone.addEventListener('dragleave', () => {
+                modalDropZone.style.borderColor = '#444';
+                modalDropZone.style.background = '#0a0a0a';
+            });
+
+            modalDropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                modalDropZone.style.borderColor = '#444';
+                modalDropZone.style.background = '#0a0a0a';
+                if (e.dataTransfer.files.length) {
+                    handleModalFile(e.dataTransfer.files[0]);
+                }
+            });
+        }
+
+        if (modalFileInput) {
+            modalFileInput.addEventListener('change', (e) => {
+                if (e.target.files.length) {
+                    handleModalFile(e.target.files[0]);
+                }
+            });
+        }
+
+        function handleModalFile(file) {
+            if (file.size > 10 * 1024 * 1024) {
+                showModalError('share', 'File size must be under 10MB');
+                return;
+            }
+            modalSelectedFile = file;
+            const fileNameEl = document.getElementById('modal-file-name');
+            fileNameEl.textContent = `📎 ${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
+            fileNameEl.style.display = 'block';
+        }
+
+        // Share form submission
+        document.getElementById('modal-share-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            hideModalError('share');
+            hideModalResult('share');
+
+            const btn = document.getElementById('modal-share-btn');
+            btn.disabled = true;
+            btn.textContent = 'Sharing...';
+
+            try {
+                const expiry = document.getElementById('modal-expiry').value;
+                const burn = document.getElementById('modal-burn').checked;
+                let response;
+
+                if (modalShareType === 'text') {
+                    const content = document.getElementById('modal-share-content').value.trim();
+                    if (!content) {
+                        showModalError('share', 'Please enter some text to share');
+                        btn.disabled = false;
+                        btn.textContent = 'Share';
+                        return;
+                    }
+                    const formData = new FormData();
+                    formData.append('type', 'text');
+                    formData.append('content', content);
+                    formData.append('expiry_minutes', expiry);
+                    formData.append('burn_after_read', burn);
+                    response = await fetch('/share', { method: 'POST', body: formData });
+                } else {
+                    if (!modalSelectedFile) {
+                        showModalError('share', 'Please select a file to share');
+                        btn.disabled = false;
+                        btn.textContent = 'Share';
+                        return;
+                    }
+                    const formData = new FormData();
+                    formData.append('type', 'file');
+                    formData.append('file', modalSelectedFile);
+                    formData.append('expiry_minutes', expiry);
+                    formData.append('burn_after_read', burn);
+                    response = await fetch('/share', { method: 'POST', body: formData });
+                }
+
+                const data = await response.json();
+                if (response.ok) {
+                    document.getElementById('modal-share-code').textContent = data.code;
+                    showModalResult('share');
+                    // Reset form
+                    document.getElementById('modal-share-content').value = '';
+                    modalSelectedFile = null;
+                    document.getElementById('modal-file-name').style.display = 'none';
+                } else {
+                    showModalError('share', data.detail || 'Failed to share');
+                }
+            } catch (err) {
+                showModalError('share', 'Network error. Please try again.');
+            }
+
+            btn.disabled = false;
+            btn.textContent = 'Share';
+        });
+
+        function copyShareCode() {
+            const code = document.getElementById('modal-share-code').textContent;
+            navigator.clipboard.writeText(code);
+            const btn = document.querySelector('#modal-share-result .modal-copy-btn');
+            btn.textContent = 'Copied!';
+            setTimeout(() => btn.textContent = 'Copy', 2000);
+        }
+
+        // ========== ACCESS MODAL LOGIC ==========
+        const modalAccessCodeInput = document.getElementById('modal-access-code');
+        if (modalAccessCodeInput) {
+            modalAccessCodeInput.addEventListener('input', (e) => {
+                let value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+                if (value.length > 3) {
+                    value = value.slice(0, 3) + '-' + value.slice(3, 6);
+                }
+                e.target.value = value;
+            });
+        }
+
+        document.getElementById('modal-access-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            hideModalError('access');
+            hideModalResult('access');
+
+            const code = document.getElementById('modal-access-code').value.trim();
+            if (code.length < 7) {
+                showModalError('access', 'Please enter a valid 6-character code');
+                return;
+            }
+
+            try {
+                const response = await fetch('/access', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ code })
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    if (data.type === 'text') {
+                        document.getElementById('modal-access-content').textContent = data.content;
+                        showModalResult('access');
+                    } else if (data.type === 'file') {
+                        // Trigger file download
+                        window.location.href = `/access/${code}/download`;
+                    }
+                } else {
+                    showModalError('access', data.detail || 'Content not found or expired');
+                }
+            } catch (err) {
+                showModalError('access', 'Network error. Please try again.');
+            }
+        });
+
+        function copyAccessContent() {
+            const content = document.getElementById('modal-access-content').textContent;
+            navigator.clipboard.writeText(content);
+            const btn = document.querySelector('#modal-access-result .modal-copy-btn');
+            btn.textContent = 'Copied!';
+            setTimeout(() => btn.textContent = 'Copy', 2000);
+        }
+
+        // ========== ROOM MODAL LOGIC ==========
+        document.getElementById('modal-create-room-btn').addEventListener('click', async () => {
+            hideModalError('room');
+            try {
+                const response = await fetch('/room/create', { method: 'POST' });
+                const data = await response.json();
+                if (response.ok) {
+                    // Navigate to room page
+                    window.location.href = `/room/${data.room_key}`;
+                } else {
+                    showModalError('room', data.detail || 'Failed to create room');
+                }
+            } catch (err) {
+                showModalError('room', 'Network error. Please try again.');
+            }
+        });
+
+        document.getElementById('modal-join-room-btn').addEventListener('click', () => {
+            const code = document.getElementById('modal-room-code').value.trim().toUpperCase();
+            if (code) {
+                window.location.href = `/room/${code}`;
+            } else {
+                showModalError('room', 'Please enter a room code');
+            }
+        });
+
+        // Helper functions
+        function showModalError(prefix, message) {
+            const el = document.getElementById(`modal-${prefix}-error`);
+            if (el) {
+                el.textContent = message;
+                el.classList.add('show');
+            }
+        }
+
+        function hideModalError(prefix) {
+            const el = document.getElementById(`modal-${prefix}-error`);
+            if (el) el.classList.remove('show');
+        }
+
+        function showModalResult(prefix) {
+            const el = document.getElementById(`modal-${prefix}-result`);
+            if (el) el.classList.add('show');
+        }
+
+        function hideModalResult(prefix) {
+            const el = document.getElementById(`modal-${prefix}-result`);
+            if (el) el.classList.remove('show');
+        }
+    </script>
+</body>
+
+</html>
