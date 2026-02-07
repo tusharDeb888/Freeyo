@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+venv/
+.env
+
+# Database
+*.db
+shares.db
+app/data/*.db
+
+# File Storage (User uploads)
+app/storage/*
+!app/storage/.gitkeep
+
+# Deployment
+files/
+deploy.sh
+deploy_amazon_linux.sh
+freeyo-key.pem
+
+# Mac
+.DS_Store
