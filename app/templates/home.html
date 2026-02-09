@@ -1948,7 +1948,8 @@
                         if (logo) {
                             const style = document.createElement('style');
                             style.textContent = `
-                                #logo, #spline-text, a[href*="spline"], [class*="logo"], [id*="logo"] {
+                                /* Hide Logo, Text, and Hand Cursor Hint */
+                                #logo, #spline-text, a[href*="spline"], [class*="logo"], [id*="logo"], .hand, .hint, [class*="hand"], [class*="hint"] {
                                     display: none !important;
                                     visibility: hidden !important;
                                     opacity: 0 !important;
