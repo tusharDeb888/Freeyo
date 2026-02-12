@@ -146,6 +146,18 @@ async def landing_page(request: Request):
     return templates.TemplateResponse("home.html", {"request": request})
 
 
+@app.get("/sitemap.xml", include_in_schema=False)
+async def sitemap():
+    """Serve sitemap.xml for SEO."""
+    return FileResponse(STATIC_PATH / "sitemap.xml", media_type="application/xml")
+
+
+@app.get("/robots.txt", include_in_schema=False)
+async def robots():
+    """Serve robots.txt for SEO."""
+    return FileResponse(STATIC_PATH / "robots.txt", media_type="text/plain")
+
+
 @app.get("/share", response_class=HTMLResponse)
 async def upload_page(request: Request):
     """Serve the upload/share page."""
